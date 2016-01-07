@@ -75,7 +75,7 @@ public class TeleportUtil {
 		final Entity entity = player.getVehicle();
 		if (player.isInsideVehicle() && entity instanceof LivingEntity) {
 			entity.eject();
-			if (teleportEntities && !(entity instanceof Player) && !EntityUtil.isEchoPet(entity))
+			if (teleportEntities && !(entity instanceof Player))
 				entity.remove();
 		}
 
@@ -84,7 +84,7 @@ public class TeleportUtil {
 		player.setFireTicks(0); // Cancel lava fire
 
 		// Re-mount player on entity (excl. EchoPet)
-		if (entity != null && teleportEntities && entity instanceof LivingEntity && !(entity instanceof Player) && !EntityUtil.isEchoPet(entity)) {
+		if (entity != null && teleportEntities && entity instanceof LivingEntity && !(entity instanceof Player))  {
 			final Entity e = location.getWorld().spawn(location, entity.getClass());
 			EntityUtil.setEntityTypeData(e, EntityUtil.getEntityTypeData(entity)); // Clone entity
 			// data
@@ -155,8 +155,8 @@ public class TeleportUtil {
 			if (tpType.equals(TeleportType.SERVER)) {
 				msg = new PluginMessage(player, location.get(SERVER), Plugin.bungeeServerName, tpCmd, tpCmdType, tpMsg);
 				// Player location teleport
-			} else if (e == null || !teleportEntities || e instanceof Player || EntityUtil.isEchoPet(e)) {
-				msg = new PluginMessage(player, location, Plugin.bungeeServerName, tpCmd, tpCmdType, tpMsg);
+			//} else if (e == null || !teleportEntities || e instanceof Player || EntityUtil.isEchoPet(e)) {
+			//	msg = new PluginMessage(player, location, Plugin.bungeeServerName, tpCmd, tpCmdType, tpMsg);
 				// Player riding entity teleport (excl. EchoPet)
 			} else {
 				msg = new PluginMessage(player, e, location, Plugin.bungeeServerName, tpCmd, tpCmdType, tpMsg);
@@ -185,7 +185,7 @@ public class TeleportUtil {
 		entity.remove();
 
 		// Clone entity - Spawnable (excl. EchoPet)
-		if (entity.getType().isSpawnable() && !EntityUtil.isEchoPet(entity)) {
+		if (entity.getType().isSpawnable())  {
 			final Entity e = location.getWorld().spawn(location, entity.getClass());
 			EntityUtil.setEntityTypeData(e, EntityUtil.getEntityTypeData(entity));
 
@@ -199,7 +199,7 @@ public class TeleportUtil {
 
 	// BungeeCord entity spawn out (excl. EchoPet)
 	public static void teleportEntity(final EntityPortalEvent event, final Map<String, String> location) {
-		if (Conf.bungeeCordSupport && (event.getEntityType().isSpawnable() && !EntityUtil.isEchoPet(event.getEntity()) || event.getEntityType() == EntityType.DROPPED_ITEM)) {
+		if (Conf.bungeeCordSupport && (event.getEntityType().isSpawnable() || event.getEntityType() == EntityType.DROPPED_ITEM)) {
 			// Send spawn command packet via BungeeCord
 			if (!Conf.useSocketComms || Plugin.serv == null) {
 				// Send AGBungeeSpawn packet
@@ -334,7 +334,7 @@ public class TeleportUtil {
 			Plugin.instance.getServer().getScheduler().scheduleSyncDelayedTask(Plugin.instance, new Runnable() {
 				@Override
 				public void run() {
-					if (!EntityUtil.isEchoPet(passenger))
+					//if (!EntityUtil.isEchoPet(passenger))
 						v.setPassenger(passenger);
 					v.setVelocity(newVelocity);
 				}
@@ -458,7 +458,7 @@ public class TeleportUtil {
 					final PluginMessage msg = new PluginMessage(vehicle.getType(), velocity, location);
 
 					// Append passenger info (excl. EchoPet)
-					if (passenger != null && !EntityUtil.isEchoPet(passenger)) {
+					if (passenger != null)  {
 						if (passenger.getType().isSpawnable()) {
 							msg.addEntity(passenger);
 						}
@@ -508,7 +508,7 @@ public class TeleportUtil {
 					// Construct spawn vehicle packet
 					final Packet packet = new Packet(vehicle, velocity, location);
 					// Append passenger info (excl. EchoPet)
-					if (passenger != null && !EntityUtil.isEchoPet(passenger)) {
+					if (passenger != null)  {
 						if (passenger.getType().isSpawnable()) {
 							packet.addPassenger(passenger);
 						}

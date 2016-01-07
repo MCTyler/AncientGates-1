@@ -93,7 +93,7 @@ public class PluginMovementListener implements Listener {
 			// Handle gates that do not point anywhere
 			if (nearestGate.getTo() == null && nearestGate.getBungeeTo() == null && nearestGate.getCommand() == null) {
 				if (!Plugin.lastMessageTime.containsKey(player.getName()) || Plugin.lastMessageTime.get(player.getName()) < now - 10000L) {
-					player.sendMessage(String.format("This gate does not point anywhere :P"));
+					player.sendMessage(String.format("Teleporting to Server!"));
 					Plugin.lastMessageTime.put(player.getName(), now);
 				}
 				return;

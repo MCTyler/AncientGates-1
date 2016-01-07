@@ -25,8 +25,8 @@ import org.bukkit.entity.Wolf;
 import org.bukkit.inventory.ItemStack;
 import org.mcteam.ancientgates.Plugin;
 
-import com.dsh105.echopet.compat.api.entity.IEntityPet;
-import com.dsh105.echopet.compat.api.util.ReflectionUtil;
+//import com.dsh105.echopet.compat.api.entity.IEntityPet;
+//import com.dsh105.echopet.compat.api.util.ReflectionUtil;
 
 public class EntityUtil {
 
@@ -240,15 +240,15 @@ public class EntityUtil {
 			}
 		}
 		return player;
-	}
+	//}
 
-	public static boolean isEchoPet(final Entity entity) {
+	//public static boolean isEchoPet(final Entity entity) {
 		// If EchoPet plugin present, check if entity is a pet
-		try {
-			return ReflectionUtil.getEntityHandle(entity) instanceof IEntityPet;
-		} catch (final NoClassDefFoundError e) {
-			return false;
-		}
+	//	try {
+	//		return ReflectionUtil.getEntityHandle(entity) instanceof IEntityPet;
+	//	} catch (final NoClassDefFoundError e) {
+	//		return false;
+	//	}
 	}
 
 }
